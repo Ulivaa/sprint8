@@ -1,52 +1,47 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.dto.UserDto;
 import ru.yandex.practicum.filmorate.model.User;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-
+@Slf4j
 @RestController
 public class UserController {
-    private Map< Integer, User> users = new HashMap<>();
+    private Map<Integer, User> users = new HashMap<>();
 
-//    @PostMapping
-//    public void createUser(@RequestBody User user){
-//        User user = userDto.mapToUser(userDto);
-//        users.put(user.getId(), user);
-
-//    }
-
-    @PostMapping("/user")
-    public void createUser(@RequestBody UserDto userDto){
+    @PostMapping("/users")
+    public void createUser(@RequestBody UserDto userDto) {
         User user = userDto.mapToUser(userDto);
-
-
-        if (user.getLogin().contains(" ") || !user.getEmail().contains("@") ) {
-            throw new RuntimeException("Неверный формат данных");
+        if (user.getLogin().contains(" ") || !user.getEmail().contains("@")) {
+            log.error("Неверный формат данных");
+            throw new RuntimeException();
         }
-
         users.put(user.getId(), user);
-
+        log.info("Добавлен объект {}", user.getLogin());
     }
-    @PutMapping("/user")
-    public void updateUser(@RequestBody User user){
-//        users.put(user.getId(), user);
 
+    @PutMapping("/users")
+    public void updateUser(@RequestBody User user) {
+        if (user.getLogin().contains(" ") || !user.getEmail().contains("@")) {
+            log.error("Неверный формат данных");
+            throw new RuntimeException();
+        }
+        users.put(user.getId(), user);
+        log.info("Обновлен объект {}", user.getLogin());
     }
 
     @GetMapping("/users")
-    public Collection<User> returnAllUsers(){
-
-//        users.put(1, new User(1, "login", "email", "name", LocalDate.of(1996, Month.APRIL, 16)));
+    public Collection<User> returnAllUsers() {
         return users.values();
     }
 }
 
-
+//пример
 //{
 //        "id": 1,
 //        "login": "login",

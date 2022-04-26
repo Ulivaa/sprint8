@@ -15,9 +15,9 @@ import java.time.format.DateTimeFormatter;
 public class Film {
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    int id;
-    @NonNull String name;
-    String description;
-    LocalDate date;
-    Duration duration;
+    private int id;
+    private @NonNull String name;
+    private String description;
+    private LocalDate releaseDate;
+    private Duration duration;
 }

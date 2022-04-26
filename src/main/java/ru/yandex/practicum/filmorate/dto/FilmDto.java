@@ -14,20 +14,19 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class FilmDto {
 
-    static int id = 0;
-    @NonNull String name;
-    String description;
-    // можно принимать как стринг и потом парсить в норм переменную,
-    LocalDate date;
-    Duration duration;
+    private static int id = 0;
+    private @NonNull String name;
+    private String description;
+    private LocalDate releaseDate;
+    private int duration;
 
-    public Film mapToFilm(FilmDto filmDto){
+    public Film mapToFilm(FilmDto filmDto) {
 
         Film film = new Film(filmDto.getName());
         film.setId(++id);
-        film.setDate(filmDto.getDate());
+        film.setReleaseDate(filmDto.getReleaseDate());
         film.setDescription(filmDto.getDescription());
-        film.setDuration(filmDto.getDuration());
+        film.setDuration(Duration.ofMinutes(filmDto.getDuration()));
         return film;
     }
 

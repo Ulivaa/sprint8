@@ -10,14 +10,15 @@ import java.util.Objects;
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    int id;
-    @NonNull String login;
-    @NonNull String email;
-    String name;
-    LocalDate birthday;
+    private int id;
+    private @NonNull String login;
+    private @NonNull String email;
+    private String name;
+    private LocalDate birthday;
 
     @Override
     public boolean equals(Object o) {
@@ -26,6 +27,7 @@ public class User {
         User user = (User) o;
         return email.equals(user.getEmail());
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(email);
